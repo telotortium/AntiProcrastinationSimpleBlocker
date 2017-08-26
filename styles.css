@@ -35,6 +35,12 @@ p {
     margin: 0px;
 }
 
+#checklist p {
+    font-family: serif;
+    font-size: 16px;
+    margin: 0px;
+}
+
 input { 
     padding: 5px;
     border: solid 1px #E5E5E5;
