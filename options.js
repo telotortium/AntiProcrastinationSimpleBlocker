@@ -25,7 +25,6 @@ function parse_timer_input() {
       g = f + d;
     (localStorage.timerend = JSON.stringify(g)),
       (localStorage.timeron = !0),
-      (localStorage.activated = !0),
       restore_onoff();
     {
       setInterval(timer, 500);

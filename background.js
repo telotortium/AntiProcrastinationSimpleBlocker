@@ -34,10 +34,9 @@ function checktime() {
       c = JSON.parse(localStorage.timerend);
     b > c &&
       ((localStorage.timeron = !1),
-      (localStorage.activated = !1),
+      (localStorage.activated = (localStorage.activated === "false" ? !0 : !1)),
       (localStorage.flippoweroff = !0));
   }
-  "false" === localStorage.activated && (localStorage.timeron = "false");
 }
 function checkUrl(a, b) {
   if (null !== b) {
