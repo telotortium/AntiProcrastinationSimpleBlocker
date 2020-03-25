@@ -88,11 +88,6 @@ input, textarea {
     padding-bottom: 5px;
 }
 
-.likediv {
-    width: 135px;
-    float: right;
-}
-
 .ratediv {
     height: 22px;
     width: 120px;
