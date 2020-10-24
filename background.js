@@ -6,8 +6,11 @@ function first_time_setup_check() {
 }
 function local_storage_check() {
   void 0 === localStorage.activated && (localStorage.activated = "true"),
+  void 0 === localStorage.allowlist_mode && (localStorage.allowlist_mode = "false"),
     void 0 === localStorage.blocklist &&
       (localStorage.blocklist = JSON.stringify({})),
+    void 0 === localStorage.allowlist &&
+      (localStorage.allowlist = JSON.stringify({})),
     void 0 === localStorage.blockextensions &&
       (localStorage.blockextensions = "false"),
     void 0 === localStorage.locked && (localStorage.locked = "false"),
@@ -39,20 +42,28 @@ function checktime() {
   }
 }
 function checkUrl(a, b) {
+  var allowlist_mode = localStorage.allowlist_mode === "true";
+  var do_block = allowlist_mode;
+  var d = new RegExp("chrome://extensions", "i");
+  var e = new RegExp(chrome.extension.getURL(""), "i");
   if (null !== b) {
     for (
-      var c = JSON.parse(localStorage.blocklist),
-        d = new RegExp("chrome://extensions", "i"),
-        e = new RegExp(chrome.extension.getURL(""), "i"),
-        f = 0;
+      var c = JSON.parse(allowlist_mode ? localStorage.allowlist : localStorage.blocklist),
+          f = 0;
       f < c.length;
       f++
     ) {
       var g = new RegExp(c[f], "i");
-      g.test(b) && !e.test(b) && block(a, b);
+      if (g.test(b)) {
+        do_block = !allowlist_mode;
+        break;
+      }
     }
-    "true" === localStorage.blockextensions && d.test(b) && block(a, b);
+    if (do_block && !e.test(b)) {
+      block(a, b);
+    }
   }
+  "true" === localStorage.blockextensions && d.test(b) && block(a, b);
 }
 function block(a) {
   "true" === localStorage.activated &&

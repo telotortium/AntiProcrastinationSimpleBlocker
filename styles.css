@@ -312,6 +312,10 @@ input, textarea {
     right: 0px; 
 }
 
+.allowlist-blocklist-hidden {
+    display: none;
+}
+
 /*
  * timer set button
  */

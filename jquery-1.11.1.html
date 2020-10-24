@@ -25,6 +25,9 @@
 					<div class="ratediv">
 						<button class="ratebutton" id="rateandreview">Rate & Review</button>
 					</div>
+					<div class="likediv">
+						<iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fsimpleblocker.com%2F&amp;width=60&amp;layout=box_count&amp;action=like&amp;show_faces=true&amp;share=false&amp;height=65" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:60px; height:65px;" allowTransparency="true"></iframe>
+					</div>
 				</div>
 			</div>
 
@@ -40,6 +43,16 @@
 					        <div class="onoffswitch-switch"></div>
 					    </label>
 					</div>
+					<br />
+					<img src="images/allowlist.png" alt="Allowlist mode" />
+					<br />
+					<div class="onoffswitch">
+					    <input type="checkbox" name="allowlist-switch" class="onoffswitch-checkbox" id="allowlist-switch">
+					    <label class="onoffswitch-label" for="allowlist-switch">
+					        <div class="onoffswitch-inner"></div>
+					        <div class="onoffswitch-switch"></div>
+					    </label>
+					</div>
 				</div>
 				<div class="optionright" id="sleep">
 					<img src="images/sleep-timer.png" alt="Sleep Timer" />
@@ -51,16 +64,16 @@
 			</div>
 
 			<!-- sites to block -->
-			<div class="optionrow">
+			<div class="optionrow" id="blockrow">
 				<div id="blocklistHeader">
 					<img src="images/website-blocklist.png" alt="Website Blocklist" />
 				</div>
-				<div class="optionleft" id="blockrow">
+				<div class="optionleft">
 					<textarea cols="30" rows="20" id="blockbox"></textarea>
 					<br />
 					<button class="saveblocklist" id="saveblocklist">Save Blocklist</button>
 				</div>
-				<div class="optionright" id="blockrow">
+				<div class="optionright">
 					In the text box to the left, input the sites you would like to block. Each line should contain 1 site. Any website URL that contains one of the elements in the blocklist will be blocked. One example of a valid blocklist is as follows: <br />
 					<br />
 					<strong>
@@ -74,6 +87,32 @@
 					All 5 entries shown are valid. The format used in the top 3 entries is the simplest, and will block all pages on Twitter, CNN, or Reddit. The 4th entry is more specific, and will block the main Facebook site, but will not block subdomains like <u>developers.facebook.com</u>. The 5th entry is a subdomain specific entry, and will block Google News, but allow other Google services like <u>finance.google.com</u>.
 					<br /><br />
 					<span id="warning">Warning: Be careful not to use excessively vague or short entries on the website block list, such as "/" or "www.", as almost every website URL matches those elements.</span>
+
+				</div>
+			</div>
+			<div class="optionrow" id="allowrow">
+				<div id="allowlistHeader">
+					<img src="images/website-allowlist.png" alt="Website Allowlist" />
+				</div>
+				<div class="optionleft">
+					<textarea cols="30" rows="20" id="allowbox"></textarea>
+					<br />
+					<button class="saveblocklist" id="saveallowlist">Save Allowlist</button>
+				</div>
+				<div class="optionright">
+					In the text box to the left, input the sites you would like to allow. Each line should contain 1 site. Any website URL that contains one of the elements in the allowlist will be allowed - all other sites will be blocked. One example of a valid allowlist is as follows: <br />
+					<br />
+					<strong>
+					twitter.com<br />
+					cnn.com<br />
+					reddit.com<br />
+					www.facebook.com<br />
+					news.google.com<br />
+					</strong>
+					<br />
+					All 5 entries shown are valid. The format used in the top 3 entries is the simplest, and will allow all pages on Twitter, CNN, or Reddit. The 4th entry is more specific, and will allow the main Facebook site, but will not allow subdomains like <u>developers.facebook.com</u>. The 5th entry is a subdomain specific entry, and will allow Google News, but block other Google services like <u>finance.google.com</u>.
+					<br /><br />
+					<span id="warning">Warning: Be careful not to use excessively vague or short entries on the website allow list, such as "/" or "www.", as almost every website URL matches those elements.</span>
 
 				</div>
 			</div>

@@ -56,8 +56,19 @@ function save_options() {
   localStorage.activated = a.checked;
   var b = document.getElementById("blockextensions");
   localStorage.blockextensions = b.checked;
+  var c = document.getElementById("allowlist-switch");
+  localStorage.allowlist_mode = c.checked;
 }
-function process() {
+function hide_allowlist_blocklist() {
+  if (localStorage.allowlist_mode === "true") {
+    $("#blockrow").addClass("allowlist-blocklist-hidden");
+    $("#allowrow").removeClass("allowlist-blocklist-hidden");
+  } else {
+    $("#blockrow").removeClass("allowlist-blocklist-hidden");
+    $("#allowrow").addClass("allowlist-blocklist-hidden");
+  }
+}
+function process_blocklist() {
   for (var a = $("#blockbox").val(), b = a.split(/\n/), c = 0; c < b.length; )
     (b[c] = trim(b[c])),
       "" == b[c] || void 0 === b[c] || null === b[c] ? b.splice(c, 1) : c++;
@@ -67,6 +78,18 @@ function process() {
     (d.style.color = "#0A7D00"),
     setTimeout(function() {
       (d.innerHTML = "Save Blocklist"), (d.style.color = "#000000");
+    }, MSG_DISPLAY_TIME);
+}
+function process_allowlist() {
+  for (var a = $("#allowbox").val(), b = a.split(/\n/), c = 0; c < b.length; )
+    (b[c] = trim(b[c])),
+      "" == b[c] || void 0 === b[c] || null === b[c] ? b.splice(c, 1) : c++;
+  localStorage.allowlist = JSON.stringify(b);
+  var d = document.getElementById("saveallowlist");
+  (d.innerHTML = "Saved!"),
+    (d.style.color = "#0A7D00"),
+    setTimeout(function() {
+      (d.innerHTML = "Save Allowlist"), (d.style.color = "#000000");
     }, MSG_DISPLAY_TIME);
 }
 function trim(a) {
@@ -141,6 +164,10 @@ function restore_onoff() {
   var a = document.getElementById("myonoffswitch");
   a.checked = "true" === localStorage.activated ? !0 : !1;
 }
+function restore_allowlist() {
+  var a = document.getElementById("allowlist-switch");
+  a.checked = "true" === localStorage.allowlist_mode ? !0 : !1;
+}
 function restore_options() {
   var a = JSON.parse(localStorage.version);
   document.getElementById("versionheader").innerHTML = a;
@@ -165,7 +192,15 @@ function restore_options() {
     e++
   )
     d = d + c[e] + "\n";
-  (document.getElementById("blockbox").value = d), restore_onoff();
+  (document.getElementById("blockbox").value = d);
+  for (
+    var c = JSON.parse(localStorage.allowlist), d = "", e = 0;
+    e < c.length;
+    e++
+  )
+    d = d + c[e] + "\n";
+  (document.getElementById("allowbox").value = d), restore_onoff();
+  restore_allowlist();
   var f = document.getElementById("blockextensions");
   f.checked = "true" === localStorage.blockextensions ? !0 : !1;
   var g = document.getElementById("passprotect");
@@ -232,10 +267,19 @@ function initializeOptionsPage() {
     document
       .querySelector("#timerset")
       .addEventListener("click", parse_timer_input),
-    document.querySelector("#saveblocklist").addEventListener("click", process),
+    document.querySelector("#saveblocklist")
+            .addEventListener("click", process_blocklist),
+    document.querySelector("#saveallowlist")
+            .addEventListener("click", process_allowlist),
     document
       .querySelector("#myonoffswitch")
       .addEventListener("click", save_options),
+    document
+      .querySelector("#allowlist-switch")
+      .addEventListener("click", save_options),
+    document
+      .querySelector("#allowlist-switch")
+      .addEventListener("click", hide_allowlist_blocklist),
     document
       .querySelector("#blockextensions")
       .addEventListener("click", save_options),
@@ -248,6 +292,7 @@ function initializeOptionsPage() {
     document
       .querySelector("#randompassword")
       .addEventListener("click", random_password);
+  hide_allowlist_blocklist();
 }
 function initializePasswordPage() {
   document.querySelector("#submit").addEventListener("click", check_password),
