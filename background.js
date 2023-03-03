@@ -98,6 +98,11 @@ function orgPomodoroCheck() {
   }
 }
 var scanFreq = 5e3;
+chrome.runtime.onStartup.addListener(
+  callback: () => {
+    localStorage.org_pomodoro_state = undefined;
+  }
+),
 local_storage_check(),
   first_time_setup_check(),
   setInterval(local_storage_check, 3e4),
