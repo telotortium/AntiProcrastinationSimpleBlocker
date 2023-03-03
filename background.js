@@ -74,10 +74,32 @@ function checkAllTabs() {
     for (var b = 0; b < a.length; b++) checkUrl(a[b].id, a[b].url);
   });
 }
+function orgPomodoroCheck() {
+  try {
+    fetch("http://localhost:7345")
+      .then((response) => response.json())
+      .then((data) => {
+        let last_state = localStorage.org_pomodoro_state;
+        let state = data["org-pomodoro-state"];
+        let restarted = data["org-pomodoro-state"];
+        if (restarted || !last_state || state !== last_state) {
+          if (state === ":pomodoro") {
+            localStorage.activated = "true";
+          } else {
+            localStorage.activated = "false";
+          }
+        }
+        localStorage.org_pomodoro_state = state;
+      })
+  } catch (e) {
+    console.log(e);
+  }
+}
 var scanFreq = 5e3;
 local_storage_check(),
   first_time_setup_check(),
   setInterval(local_storage_check, 3e4),
+  setInterval(orgPomodoroCheck, 3e4),
   setInterval(checktime, 1e3),
   checkAllTabs(),
   setInterval(checkAllTabs, scanFreq),
