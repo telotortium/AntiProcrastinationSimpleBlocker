@@ -99,7 +99,7 @@ function orgPomodoroCheck() {
 }
 var scanFreq = 5e3;
 chrome.runtime.onStartup.addListener(
-  callback: () => {
+  function() {
     localStorage.org_pomodoro_state = undefined;
   }
 ),
