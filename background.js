@@ -102,11 +102,11 @@ chrome.runtime.onStartup.addListener(
   function() {
     localStorage.org_pomodoro_state = undefined;
   }
-),
+);
 local_storage_check(),
   first_time_setup_check(),
   setInterval(local_storage_check, 3e4),
-  setInterval(orgPomodoroCheck, 3e4),
+  setInterval(orgPomodoroCheck, 3e3),
   setInterval(checktime, 1e3),
   checkAllTabs(),
   setInterval(checkAllTabs, scanFreq),
