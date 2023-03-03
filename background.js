@@ -85,8 +85,10 @@ function orgPomodoroCheck() {
         if (restarted || !last_state || state !== last_state) {
           if (state === ":pomodoro") {
             localStorage.activated = "true";
+            localStorage.locked = "true";
           } else {
             localStorage.activated = "false";
+            localStorage.locked = "false";
           }
         }
         localStorage.org_pomodoro_state = state;
