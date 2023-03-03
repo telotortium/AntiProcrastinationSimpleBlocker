@@ -83,7 +83,9 @@ function orgPomodoroCheck() {
         let state = data["org-pomodoro-state"];
         let restarted = data["org-pomodoro-state"];
         if (restarted || !last_state || state !== last_state) {
-          if (state === ":pomodoro") {
+          if (state === ":pomodoro" ||
+              state === ":none" &&
+              [":short-break", ":long-break"].includes(last_state)) {
             localStorage.activated = "true";
             localStorage.locked = "true";
           } else {
