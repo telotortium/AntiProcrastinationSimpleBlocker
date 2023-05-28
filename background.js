@@ -75,40 +75,37 @@ function checkAllTabs() {
   });
 }
 function orgPomodoroCheck() {
-  try {
-    fetch("http://localhost:7345")
-      .then((response) => response.json())
-      .then((data) => {
-        let last_state = localStorage.org_pomodoro_state;
-        let state = data["org-pomodoro-state"];
-        let restarted = data["org-pomodoro-state"];
-        if (restarted || !last_state || state !== last_state) {
-          if (state === ":pomodoro" ||
-              state === ":none" &&
-              [":short-break", ":long-break"].includes(last_state)) {
-            localStorage.activated = "true";
-            localStorage.locked = "true";
-          } else {
-            localStorage.activated = "false";
-            localStorage.locked = "false";
-          }
+  fetch("http://localhost:7345")
+    .then((response) => response.json())
+    .then((data) => {
+      let last_state = localStorage.org_pomodoro_state;
+      let state = data["org-pomodoro-state"];
+      if (!last_state || state !== last_state) {
+        if (state === ":pomodoro" ||
+            state === ":none" &&
+            [":short-break", ":long-break"].includes(last_state)) {
+          localStorage.activated = "true";
+          localStorage.locked = "true";
+        } else {
+          localStorage.activated = "false";
+          localStorage.locked = "false";
         }
-        localStorage.org_pomodoro_state = state;
-      })
-  } catch (e) {
-    console.log(e);
-  }
+      }
+      localStorage.org_pomodoro_state = state;
+    })
+    .catch((e) => {
+      console.log(`Got error, now deactivating: ${e}`);
+      localStorage.activated = "false";
+      localStorage.locked = "false";
+      localStorage.org_pomodoro_state = ":none";
+    });
 }
 var scanFreq = 5e3;
-chrome.runtime.onStartup.addListener(
-  function() {
-    localStorage.org_pomodoro_state = undefined;
-  }
-);
+localStorage.org_pomodoro_state = undefined;
+setInterval(orgPomodoroCheck, 3e3);
 local_storage_check(),
   first_time_setup_check(),
   setInterval(local_storage_check, 3e4),
-  setInterval(orgPomodoroCheck, 3e3),
   setInterval(checktime, 1e3),
   checkAllTabs(),
   setInterval(checkAllTabs, scanFreq),
