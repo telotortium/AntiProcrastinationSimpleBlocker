@@ -5,7 +5,15 @@
 	</head>
 	<body>
 	</body>
-	<script src="jquery-1.11.1.js"></script>
+	<!--
+		The most recent release of jQuery 1.x as of 2023-05-28.
+		To confirm that this is the exact version on the website,
+		visit
+		https://releases.jquery.com/jquery/#:~:text=1.x%20Versions-,jQuery%20Core%201.12.4,-%2D%20uncompressed%2C
+		To check script hash, run
+		`openssl dgst -sha384 -binary jquery-1.12.4.min.js | openssl base64 -A`
+	-->
+	<script src="jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<script src="md5.js"></script>
 	<script src="options.js"></script>
 </html>
