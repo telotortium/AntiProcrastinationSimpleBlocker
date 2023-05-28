@@ -305,5 +305,5 @@ function initializeEverything() {
 }
 var MSG_DISPLAY_TIME = 1e3,
   SECRET = md5("sFJ4V5uaT87uFKS2qnogyYVHR"),
-  OPTIONS = "jquery-1.11.1.html";
+  OPTIONS = "options-inner.html";
 initializeEverything();
