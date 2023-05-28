@@ -177,14 +177,6 @@ function restore_options() {
       .getElementById("gotoextensions")
       .addEventListener("click", function() {
         chrome.tabs.create({ url: "chrome://extensions" });
-      }),
-    document
-      .getElementById("rateandreview")
-      .addEventListener("click", function() {
-        chrome.tabs.create({
-          url:
-            "https://chrome.google.com/webstore/detail/simple-blocker/akfbkbiialncppkngofjpglbbobjoeoe/reviews"
-        });
       });
   for (
     var c = JSON.parse(localStorage.blocklist), d = "", e = 0;
